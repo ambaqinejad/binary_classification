@@ -6,9 +6,9 @@ from pathlib import Path
 
 def train(model, x_train, y_train, x_test, y_test):
     loss = torch.nn.BCELoss()
-    optimizer = torch.optim.SGD(params=model.parameters(), lr=.01)
+    optimizer = torch.optim.SGD(params=model.parameters(), lr=.1)
     torch.random.manual_seed(42)
-    epochs = 1000
+    epochs = 10000
     epoch_counts = []
     train_losses = []
     test_losses = []
@@ -27,7 +27,7 @@ def train(model, x_train, y_train, x_test, y_test):
             test_pred = torch.round(torch.sigmoid(test_logits))
             test_loss = loss(torch.sigmoid(test_logits), y_test)
             test_acc = accuracy_fn(y_true=y_test, y_pred=test_pred)
-        if epoch % 10 == 0:
+        if epoch % 100 == 0:
             epoch_counts.append(epoch)
             train_losses.append(loss_value.item())
             test_losses.append(test_loss.item())
